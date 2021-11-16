@@ -48,10 +48,7 @@ def executeSettings(settings, folder, files):
             try:
                 #win32print.SetDefaultPrinter(printer)
                 print(folder + '/' + file)
-                #win32api.ShellExecute(0, "print", folder + '/' + file, None,  ".",  0)
-                win32api.ShellExecute(0, "printto", folder + '/' + file, f'"{printer}"', ".", 0)
-
-                #win32api.ShellExecute(0,'print',folder + '/' + file, printer,'.',0)
+                win32api.ShellExecute(0, "printto", f'"{folder}/{file}"', f'"{printer}"', ".", 0)
 
             except:
                 print("Error", "There was an error printing the file :(")
