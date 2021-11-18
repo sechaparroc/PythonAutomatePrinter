@@ -12,6 +12,7 @@ from tkinter import font # * doesn't import font or messagebox
 from tkinter import messagebox
 import dill as pickle
 import os.path
+from pathlib import Path
 
 DM_OUT_BUFFER = 0x02
 DM_IN_BUFFER = 0x08
@@ -112,6 +113,8 @@ def initWindow(width, height):
 def onPrinterChanges(*args):
     printerLabel.config(text = _printer.get().upper() + " OPTIONS")
     detailsText.delete(1.0, END)
+
+Path('./config/').mkdir(parents=True, exist_ok=True)
 
 # Variables
 width, height = 600, 800
