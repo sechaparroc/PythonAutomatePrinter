@@ -84,22 +84,21 @@ def loadSettings():
 def printPS(printer, folder, file, settings):
     filepath = folder + "/" + file
     print("...Printing File", filepath)
-    for i in range(settings["Copies"]):
-        args = [
-            "-dPrinted", "-dBATCH", "-dNOSAFER", "-dNOPAUSE", "-dNOPROMPT", "-q",
-            #f'-dNumCopies#{settings["Copies"]}',  -- Not working properly
-            "-sDEVICE#mswinpr2",
-            f'-sOutputFile#"%printer%{printer}"',
-            f'-r{settings["PrintQuality"]}',
-            f'"{filepath}"'
-        ]
-        #Check https://www.ghostscript.com/doc/current/VectorDevices.htm
-        if settings["Color"] == 0: 
-            args.append(f'-sColorConversionStrategy=Gray')
-        encoding = locale.getpreferredencoding()
-        args = [a.encode(encoding) for a in args]
-        print(args)
-        ghostscript.Ghostscript(*args)
+    args = [
+        "-dPrinted", "-dBATCH", "-dNOSAFER", "-dNOPAUSE", "-dNOPROMPT", "-q",
+        f'-dNumCopies#{settings["Copies"]}',  # Not working properly
+        "-sDEVICE#mswinpr2",
+        f'-sOutputFile#"%printer%{printer}"',
+        f'-r{settings["PrintQuality"]}',
+        f'"{filepath}"'
+    ]
+    #Check https://www.ghostscript.com/doc/current/VectorDevices.htm
+    if settings["Color"] == 0: 
+        args.append(f'-sColorConversionStrategy=Gray')
+    encoding = locale.getpreferredencoding()
+    args = [a.encode(encoding) for a in args]
+    print(args)
+    ghostscript.Ghostscript(*args)
 
 def printFile(printer, folder, file, settings):
     filepath = folder + "/" + file
